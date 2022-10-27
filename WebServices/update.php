@@ -1,17 +1,18 @@
 <?php
-if (isset($_REQUEST['id']) && isset($_REQUEST['nombre']) && isset($_REQUEST['valor'])) {
-	$id = $_REQUEST['id'];
+if (isset($_REQUEST['usr']) && isset($_REQUEST['clave']) && isset($_REQUEST['nombre']) && isset($_REQUEST['correo'])) {
+	$usr = $_REQUEST['usr'];
 	$nombre = $_REQUEST['nombre'];
-	$valor = $_REQUEST['valor'];
-	$cnx =  mysqli_connect("localhost", "root", "", "dbProductos") or die("Ha sucedido un error inexperado en la conexion de la base de datos");
-	$result = mysqli_query($cnx, "SELECT id FROM productos WHERE id = '$id'");
+	$correo = $_REQUEST['correo'];
+	$clave = $_REQUEST['clave'];
+	$cnx =  mysqli_connect("localhost", "root", "", "Empresa") or die("Ha sucedido un error inexperado en la conexion de la base de datos");
+	$result = mysqli_query($cnx, "select usr from usuarios where usr = '$usr'");
 	if (mysqli_num_rows($result) > 0) {
-		mysqli_query($cnx, "UPDATE productos SET nombre='$nombre',valor='$valor' WHERE id = '$id'");
+		mysqli_query($cnx, "UPDATE usuarios SET nombre='$nombre',correo='$correo',clave='$clave' WHERE usr = '$usr'");
 	} else {
-		echo "El producto no existe...";
+		echo "Usuario No existe....";
 	}
 	mysqli_close($cnx);
 } else {
-	echo "Debe llenar los campos";
+	echo "Debe especificar usr, clave, nombre y correo, respectivamente";
 }
 ?>
